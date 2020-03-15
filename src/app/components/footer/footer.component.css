@@ -1,0 +1,20 @@
+
+span {
+    color: #fff;
+    font-size: 1em;
+}
+
+.row {
+    background: rgba(49, 51, 53, 0.397);
+    padding: 10px
+
+}
+a{
+    text-decoration: none;
+    color: antiquewhite;
+}
+
+div.container.footer{
+    margin: 0;
+    width: 100%; 
+}

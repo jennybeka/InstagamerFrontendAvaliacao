@@ -1,0 +1,156 @@
+<!-- ----------Modal quando clicado POSTAR UMA IMAGEM ----------------------->
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">New Post</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click'); resetForm();">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="postForm">
+      <div class="form-group">
+        
+        <!-- Início de envio de imagem para IMGUR -->
+        <input #imageInput type="file" formControlName="image_url" (change)="imageInputChange(imageInput)"
+          accept="image/*" [ngClass]="{ 'is-invalid': submitted && f.image_url.errors }" />
+
+        <div *ngIf="submitted && f.image_url.errors" class="invalid-feedback">
+          <div id="erroUrl" *ngIf="f.image_url.errors.required">Url is required</div>
+        </div>
+      </div><!-- end formGoupr -->
+
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Legend" formControlName="text_image" data-toggle="tooltip"
+          data-placement="top" title="Example : 'Very Happy!!'">
+      </div><!-- end formGoupr -->
+
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="tags" formControlName="tags_image" data-toggle="tooltip"
+          data-placement="top" title="Example : 'sonic, hard, happy, gamer'">
+      </div><!-- end formGoupr -->
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click'); resetForm();">Close</button>
+
+    <button [disabled]="loading" type="submit" class="btn btn-primary"
+      (click)="createPhoto();modal.close('Close click');resetForm();">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit
+    </button>
+  </div>
+</ng-template>
+<!-- --------------------------------------------------------------- -->
+
+
+<!-- Div profile / -->
+<div class="container text-center">
+  <div class="col-md-10 center-block clearfix">
+    <img src="">
+    <div class="profile">
+      <h2>Hi,{{profileName}}</h2>
+      <hr>
+      <img ngbTooltip="To change your gravatar, access: 'www.gravatar.com' " data-toggle="tooltip" data-placement="top"
+        src="http://www.gravatar.com/avatar/{{profileGravatar}}?d=wavatar" class="avatar rounded-circle"
+        alt="My avatar">
+      <p>Following:{{profileFollowing || 0 }} <span class="spacing">Followers :{{profileFollowers || 0}}</span>
+        <span class="spacing"> Posts:{{totalPosts}}</span></p>
+      <button class="btn btn-outline-primary mb-2 mr-2" (click)="openScrollableContent(longContent)">New Post</button>
+    </div>
+  </div>
+  <hr>
+  <!-- Div clicar modal e mostrar imagem-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 center-block clearfix">
+        <a *ngFor="let photos of info " class="col-md-4 feed-thumbnail clearfix">
+          <img class="mx-auto feed-thumbnail-img" [src]="photos.image_url"
+            (click)="getDetailsPhoto(photos.idPhoto);openModalPhoto(modalPhoto);verifyLike(photos.idPhoto);"></a>
+      </div>
+    </div>
+  </div>
+  <!--End Div profile / -->
+
+
+  <!--MODAL DE IMAGEMM /////////////////////////////////////////////////////////////////////////////////// -->
+  <ng-template #modalPhoto let-modal class="modal-content" style="padding: 10px;">
+    <div class="modal-header">
+      <h4 class="modal-title">{{profileName}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- Card image  DELETE PHOTO-->
+
+    <div class="modal-body">
+      <!-- Card image  DELETE PHOTO-->
+      <a class="float-left p-1 my-1"
+        (click)="deletePhoto(photoDetails[0]?.id);getMyProfile();modal.close('Close click')">
+        <i class="fa fa-trash"></i> Delete Photo
+      </a>
+      <div class="view overlay" style="text-align: center;">
+        <img class="card-img-top" src={{photoDetails[0]?.image_url}} alt="details image">
+        <div class="mask rgba-white-slight">
+          <p>{{photoDetails[0]?.text_photo}}</p>
+        </div>
+      </div>
+      <!--  like -->
+      <div class="text-right">
+
+        <!-- button like -->
+
+        <div *ngIf="checkLike; else notLike">
+          <button type="submit" class="btn btn-light" (click)="removeLike(photoDetails[0]?.id);">
+            <i class="fa fa-thumbs-down"></i>
+          </button>
+          <span class="mx-3" style="color:red;">
+            <i class="fa fa-2x fa-heart align-middle" data-toggle="tooltip" data-placement="top" title="I like it"></i>
+            {{photoDetails[0]?.likecount ||  0}}
+          </span>
+        </div>
+
+        <ng-template #notLike>
+          <div class="text-right">
+            <button class="btn btn-light" (click)="giveLike(photoDetails[0]?.id);">
+              <i class="fa fa-thumbs-up"></i>
+            </button>
+            <span class="mx-3" style="color:red;">
+              <i class="fa fa-2x fa-heart align-middle" data-toggle="tooltip" data-placement="top"
+                title="I like it"></i>
+              {{photoDetails[0]?.likecount ||  0}}
+            </span>
+          </div>
+        </ng-template>
+
+      </div>
+      <!--end  button like -->
+
+
+      <div *ngIf="photoComments && photoComments.length" class="modal-body">
+        <div class="card-text" *ngFor="let comment of photoComments">
+          <p>{{comment.username}} ->{{ comment.comment_text }}
+            <a>
+              <i class="fa fa-trash float-left p-1 my-1 mr-3"
+                (click)="deleteComment(comment?.id);getDetailsPhoto(photoDetails[0]?.id);"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <form [formGroup]="commentForm">
+        <div class="form-group">
+          <i class="fa fa-comments-o prefix"></i>
+          <textarea name="text" class="form-control" rows="1" formControlName="comments"></textarea>
+          <!-- Button -->
+          <button type="submit" class="btn btn-primary float-right mt-3"
+            (click)="createComment(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)">
+            Send
+          </button>
+        </div>
+        <!-- Form -->
+      </form>
+    </div>
+  </ng-template>
+  <!---------------- FIM MODAL DE IMAGEMM /////////////////////////////////////////////////////////////////////////////////// -->
+  <a class="btn btn-blue" (click)="loadMorePhotos()">Load more</a>

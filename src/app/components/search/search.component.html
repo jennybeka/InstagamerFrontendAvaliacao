@@ -1,0 +1,50 @@
+<div class="bg">
+  <div class="search-bar p-3 p-lg-1 pl-lg-4">
+    <!-- Inicio div SEARCH BAR -->
+    <div class="container">
+      <!-- Inicio div CONTAINER -->
+
+
+      <form [formGroup]="search" class="search">
+        <div class="row search">
+          <!-- Inicio div row -->
+          <div class="col-sm-6 offset-sm-3 align-items-center form-group">
+            <input type="text" id="forma_2" class="form-control" placeholder="&#xf002;Gamer friends?" class="form-control border-0 shadow-0"
+              formControlName="searchUsers" #searchField (keyup)="searchUsers(searchField.value)" />
+          </div>
+        </div><!-- FIM div row -->
+      </form>
+
+    </div><!-- FIM div SEARCH BAR -->
+
+    <!-- parte adicional de busca não encontrada IF NÂO ENCONTRARR -->
+    <div class="dnf" *ngIf="dataNotFound">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Sorry, we didn't find anyone.</h2>
+        </div>
+      </div>
+    </div>
+    <!-- FIM parte adicional de busca não encontrada -->
+
+    <!-- inicio mostrar Users -->
+    <div class="container users">
+      <div class="row" style="margin-bottom: 50px; margin-top: 50px;">
+        <div class="col-6 col-md-3 col-lg-2" *ngFor="let user of allUser">
+          <div>
+            <img ngbTooltip="{{user.name}}" data-toggle="tooltip" data-placement="top"
+              src="http://www.gravatar.com/avatar/{{user.gravatar_hash}}?d=wavatar"
+              class="avatar rounded-circle mx-auto d-block" alt="My avatar">
+            <a  class="nav-link" routerLinkActive="active" [routerLink]="[user.idUser]">
+              <p class="card-title">{{user.username}}</p>
+            </a>
+          </div>
+        </div>
+        <hr />
+      </div>
+    </div>
+  </div>
+  <div class="button" style="text-align: center;padding: 20px;">
+    <a class="btn btn-blue" (click)="loadMoreUsers(searchField.value)">Load more</a>
+  </div>
+</div>

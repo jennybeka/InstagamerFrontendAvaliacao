@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+/***style*/
+
+a,
+a:hover { text-decoration: none !important; }
+body { background:#fafafa; padding-bottom: 70px; padding-top: 80px;}
+
+header { background:white center no-repeat; line-height: 76px; margin-bottom: 30px; background-size:12%; border-bottom:1px solid rgba(0,0,0,.0975); position:fixed; left:0; width:100%; top:0; z-index:99; }
+.logo { font-size: medium; display:block; }
+.logo-icon { color:#000; vertical-align: middle; border-right: 1px solid black; padding-right:17px; margin-top: -3px; font-size:35px; }
+.logo-text { height: 35px; margin: 5px 0 0 10px; }
+
+
+.btn.btn-blue { background: #3897f0; border-color: #3897f0; color: #fff; }
+.btn.btn-default { background: none; margin-top:15px;}
+
+.card-img-top {
+  width: auto; 
+  max-width: 100%;
+  min-height: 200px;
+  object-fit: scale-down;
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+    header { background-image:none; }
+    .rightmenu { display: none;}
+    .feed-image img { min-width:auto; }
+}
+
+@media (min-width: 768px) {
+    .lead,.col-md-10  {
+      font-size: 21px;
+      max-width: 100%;
+    }
+  }
+
+/*@media (min-width: 576px){
+    .col-sm-6 {
+    -webkit-box-flex: 0;
+    flex: 0 0 50%;
+    max-width: 50%;
+    }
+}*/
+
+@media (min-width: 576px){
+    .modal-dialog-scrollable .modal-content {
+        max-height: calc(100vh - 3.5rem);
+        overflow: auto;
+    }
+}

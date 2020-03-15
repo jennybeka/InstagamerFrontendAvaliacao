@@ -1,0 +1,23 @@
+div.container.navbar {
+  margin: 0;
+  width: 100%;
+}
+
+.menu {
+  background: rgba(49, 51, 53, 0.397);
+}
+
+a.nav-link {
+  color: rgb(20, 20, 18);
+  font-size: 1.5em;
+}
+
+.active {
+  color: rgb(11, 108, 138);
+}
+
+
+a:hover {
+  color: rgb(57, 97, 207);
+  cursor: pointer;
+}

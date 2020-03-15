@@ -1,0 +1,111 @@
+<!-- Div profile / -->
+<div class="container text-center">
+  <div class="col-md-10 center-block clearfix">
+    <img src="">
+    <div class="profile">
+      <h2>FriendGamer, {{profileName}}</h2>
+      <hr>
+      <img src="http://www.gravatar.com/avatar/{{profileGravatar}}?d=wavatar" class="avatar rounded-circle"
+        alt="My avatar">
+
+      <p>Following: {{profileFollowing ||  0 }} <span class="spacing">Followers : {{profileFollowers ||  0}}</span>
+        <span class="spacing"> Posts: {{totalPosts}}</span></p>
+
+      <div *ngIf="checkFollow; else notFollow">
+        <button class="btn btn-outline-primary mb-2 mr-2"
+          (click)="unfollow();">UNFOLLOW</button>
+      </div>
+
+      <ng-template #notFollow>
+        <button class="btn btn-outline-primary mb-2 mr-2"
+          (click)="follow();">FOLLOW</button>
+      </ng-template>
+
+
+    </div>
+  </div>
+  <hr>
+  <!-- Div mostrar -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 center-block clearfix">
+        <a *ngFor="let photos of info " class="col-md-4 feed-thumbnail clearfix">
+          <img class="feed-thumbnail-img" [src]="photos.image_url"
+            (click)="getPhotoMyFriend(photos.idPhoto);openModalPhoto(modalPhoto);"></a>
+      </div>
+    </div>
+  </div>
+
+  <!--MODAL DE IMAGEMM /////////////////////////////////////////////////////////////////////////////////// -->
+  <ng-template #modalPhoto let-modal class="modal-content" style="padding: 10px;">
+    <div class="modal-header">
+      <h4 class="modal-title">{{profileName}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+    <div class="view overlay" style="text-align: center;">
+      <img class="card-img-top" style="padding: 10px;" src={{photoDetails[0]?.image_url}} alt="details image">
+      <div class="mask rgba-white-slight">
+        <p>{{photoDetails[0]?.text_photo}}</p>
+      </div>
+    </div>
+
+    <!--  like -->
+    <div class="text-right">
+      <!-- button like -->
+
+      <div *ngIf="checkLike; else notLike">
+        <button type="submit" class="btn btn-light"
+          (click)="removeLike(photoDetails[0]?.id);">
+          <i class="fa fa-thumbs-down"></i>
+        </button>
+        <span class="mx-3" style="color:red;">
+          <i class="fa fa-2x fa-heart align-middle" data-toggle="tooltip" data-placement="top" title="I like it"></i>
+          {{photoDetails[0]?.likecount ||  0}}
+        </span>
+      </div>
+
+      <ng-template #notLike>
+        <div class="text-right">
+          <button type="submit" class="btn btn-light"
+            (click)="giveLike(photoDetails[0]?.id);">
+            <i class="fa fa-thumbs-up"></i>
+          </button>
+          <span class="mx-3" style="color:red;">
+            <i class="fa fa-2x fa-heart align-middle" data-toggle="tooltip" data-placement="top" title="I like it"></i>
+            {{photoDetails[0]?.likecount ||  0}}
+          </span>
+        </div>
+      </ng-template>
+
+    </div>
+    <!--end  button like -->
+
+    <div class="modal-body">
+      <div class="card-text" *ngFor="let comment of photoComments">
+        <p>{{comment.username}} ->{{ comment.comment_text }}
+          <a>
+            <i class="fa fa-trash float-left p-1 my-1 mr-3"
+              (click)="deleteComment(comment?.id);getPhotoMyFriend(photoDetails[0]?.id);"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+    <form [formGroup]="commentForm">
+      <div class="form-group">
+        <i class="fa fa-comments-o prefix"></i>
+        <textarea name="text" class="form-control" rows="1" formControlName="comments"></textarea>
+        <!-- Button -->
+        <button type="submit" class="btn btn-primary float-right mt-3"
+          (click)="createComment(photoDetails[0]?.id);getPhotoMyFriend(photoDetails[0]?.id)">
+          Send 
+        </button>
+      </div>
+      <!-- Form -->
+    </form>
+    </div>
+  </ng-template>
+  <!---------------- FIM MODAL DE IMAGEMM /////////////////////////////////////////////////////////////////////////////////// -->
+  <a class="btn btn-blue" (click)="loadMorePhotos()">Load more</a>

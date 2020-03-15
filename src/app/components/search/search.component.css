@@ -1,0 +1,44 @@
+
+div .row.search  {
+    margin-top: 80px;   
+}
+
+input {
+    text-align: center;
+    font-family: 'Turret Road', cursive;
+    background:  rgba(238, 234, 232, 0.8);  
+}
+
+h2 {
+    font-size: 35px;
+    color: rgb(91, 91, 94);
+}
+
+p.card-title{
+    text-align: center; 
+}
+
+
+/* div.card-block {
+    text-align: center;
+} */
+.dnf {
+    text-align: center;
+}
+input#forma_2{
+    /* aqui você define o tamanho da fonte */
+    font-size: 14px;
+  
+    /*
+    se constar somente FontAwesome em font-family, aparece o ícone, porém o texto
+    "informe seu e-mail" fica com a fonte padrão do navegador
+    font-family: "FontAwesome";
+    */
+  
+    /* fazendo dessa forma aparece o ícone e a fonte do texto é formatado */
+    /* atenção: pra variar o ieka (i.e.) não funciona direito - mantém a fonte padrão */
+    font-family: "FontAwesome", Open Sans, Arial;
+  
+    /* aqui você define a cor */
+    color: #3d3d3d;
+  }
