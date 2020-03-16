@@ -40,10 +40,7 @@ export class PostsComponent implements OnInit {
     private alertService: AlertService,
     private modalService: NgbModal,
     private usersService: UsersService
-  ) {
-    this.route.params.subscribe(res => console.log(res.idFriend));
-    this.route.params.subscribe(res => console.log(res.page));
-  }
+  ) {  }
 
   ngOnInit() {
     this.getPostsMyFriend();
@@ -140,7 +137,6 @@ export class PostsComponent implements OnInit {
         res => {
           this.getPostsMyFriend();
           this.verifyFollow();
-          console.log(res)
         },
         error => {
           this.alertService.error(error);
@@ -153,7 +149,6 @@ export class PostsComponent implements OnInit {
         res => {
           this.getPostsMyFriend();
           this.verifyFollow();
-          console.log(res)
         },
         error => {
           this.alertService.error(error);
@@ -165,7 +160,6 @@ export class PostsComponent implements OnInit {
       .subscribe(
         res => {
           this.c.comments.setValue("");
-          console.log(res)
           this.getPhotoMyFriend(this.photoDetails[0].id)
         },
         error => {
@@ -177,7 +171,6 @@ export class PostsComponent implements OnInit {
     this.postsService.getDeleteComment(idComment)
       .subscribe(
         res => {
-          console.log(res)
           this.getPhotoMyFriend(this.photoDetails[0].id)
         },
         error => {

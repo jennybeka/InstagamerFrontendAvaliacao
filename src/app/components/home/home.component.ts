@@ -41,11 +41,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private alertService: AlertService,
     private postsService: PostsService,
-  ) {
-    this.route.params.subscribe(res => console.log(res.id));
-    this.route.params.subscribe(res => console.log(res.page));
-  
-  }
+  ) {  }
 
   ngOnInit() {
     this.postsMyFriends();
@@ -126,9 +122,7 @@ export class HomeComponent implements OnInit {
     this.postsService.createComment(this.c.comments.value, photoId)
       .subscribe(
         res => {
-          console.log("Retorno POSTCOMMENT BD")
           this.c.comments.setValue("");
-          console.log(res)
           this.getDetailsPhoto(this.photoDetails[0].id)
         },
         error => {
@@ -142,7 +136,6 @@ export class HomeComponent implements OnInit {
     this.postsService.getDeleteComment(idComment)
       .subscribe(
         res => {
-          console.log(res)
           this.getDetailsPhoto(this.photoDetails[0].id)
         });
   }

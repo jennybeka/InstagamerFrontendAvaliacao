@@ -122,7 +122,6 @@ export class ProfileComponent implements OnInit {
   }
 
   createPhoto() {
-    console.log("Ativou CREATEPHOTO")
     this.submitted = true;
     this.alertService.clear();
 
@@ -136,10 +135,6 @@ export class ProfileComponent implements OnInit {
         res => {
 
           this.imageUrl = res['data'].link
-          console.log("LEGENDA")
-          console.log(this.f.text_image.value)
-          console.log("LEGENDA")
-          console.log(this.f.tags_image.value)
 
           this.usersService.createPost(this.imageUrl, this.f.text_image.value, this.f.tags_image.value)
             .pipe(first())
@@ -169,7 +164,6 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         res => {
           alert("Photo deleted!")
-          console.log(res)
           this.getMyProfile()
         });
   }
@@ -243,7 +237,6 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         res => {
           alert("Comment deleted!")
-          console.log(res)
           this.getDetailsPhoto(this.photoDetails[0].id)
         },
         error => {
