@@ -36,7 +36,7 @@
     <button type="button" class="btn btn-light" (click)="modal.close('Close click'); resetForm();">Close</button>
 
     <button [disabled]="loading" type="submit" class="btn btn-primary"
-      (click)="createPhoto();modal.close('Close click');resetForm();">
+      (click)="createPhoto();modal.close('Close click');">
       <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit
     </button>
   </div>
@@ -132,7 +132,7 @@
           <p>{{comment.username}} ->{{ comment.comment_text }}
             <a>
               <i class="fa fa-trash float-left p-1 my-1 mr-3"
-                (click)="deleteComment(comment?.id);getDetailsPhoto(photoDetails[0]?.id);"></i>
+                (click)="deleteComment(comment?.id);"></i>
             </a>
           </p>
         </div>
@@ -144,7 +144,7 @@
           <textarea name="text" class="form-control" rows="1" formControlName="comments"></textarea>
           <!-- Button -->
           <button type="submit" class="btn btn-primary float-right mt-3"
-            (click)="createComment(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)">
+            (click)="createComment(photoDetails[0]?.id);">
             Send
           </button>
         </div>

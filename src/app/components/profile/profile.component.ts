@@ -136,6 +136,10 @@ export class ProfileComponent implements OnInit {
         res => {
 
           this.imageUrl = res['data'].link
+          console.log("LEGENDA")
+          console.log(this.f.text_image.value)
+          console.log("LEGENDA")
+          console.log(this.f.tags_image.value)
 
           this.usersService.createPost(this.imageUrl, this.f.text_image.value, this.f.tags_image.value)
             .pipe(first())
@@ -152,6 +156,7 @@ export class ProfileComponent implements OnInit {
               });
 
           this.getMyProfile();
+          this.resetForm();
 
         });
 
@@ -223,6 +228,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         res => {
           this.c.comments.setValue("");
+          this.getDetailsPhoto(this.photoDetails[0].id)
         },
         error => {
           this.alertService.error(error);
@@ -237,6 +243,7 @@ export class ProfileComponent implements OnInit {
         res => {
           alert("Comment deleted!")
           console.log(res)
+          this.getDetailsPhoto(this.photoDetails[0].id)
         },
         error => {
           this.alertService.error(error);

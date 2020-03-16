@@ -129,6 +129,7 @@ export class HomeComponent implements OnInit {
           console.log("Retorno POSTCOMMENT BD")
           this.c.comments.setValue("");
           console.log(res)
+          this.getDetailsPhoto(this.photoDetails[0].id)
         },
         error => {
           this.alertService.error(error);
@@ -142,6 +143,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res)
+          this.getDetailsPhoto(this.photoDetails[0].id)
         });
   }
 

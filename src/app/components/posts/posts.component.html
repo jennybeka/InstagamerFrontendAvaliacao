@@ -88,7 +88,7 @@
         <p>{{comment.username}} ->{{ comment.comment_text }}
           <a>
             <i class="fa fa-trash float-left p-1 my-1 mr-3"
-              (click)="deleteComment(comment?.id);getPhotoMyFriend(photoDetails[0]?.id);"></i>
+              (click)="deleteComment(comment?.id);"></i>
           </a>
         </p>
       </div>
@@ -99,7 +99,7 @@
         <textarea name="text" class="form-control" rows="1" formControlName="comments"></textarea>
         <!-- Button -->
         <button type="submit" class="btn btn-primary float-right mt-3"
-          (click)="createComment(photoDetails[0]?.id);getPhotoMyFriend(photoDetails[0]?.id)">
+          (click)="createComment(photoDetails[0]?.id)">
           Send 
         </button>
       </div>

@@ -166,6 +166,7 @@ export class PostsComponent implements OnInit {
         res => {
           this.c.comments.setValue("");
           console.log(res)
+          this.getPhotoMyFriend(this.photoDetails[0].id)
         },
         error => {
           this.alertService.error(error);
@@ -177,6 +178,7 @@ export class PostsComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res)
+          this.getPhotoMyFriend(this.photoDetails[0].id)
         },
         error => {
           this.alertService.error(error);
