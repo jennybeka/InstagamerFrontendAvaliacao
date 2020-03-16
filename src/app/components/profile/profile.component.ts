@@ -170,6 +170,7 @@ export class ProfileComponent implements OnInit {
         res => {
           alert("Photo deleted!")
           console.log(res)
+          this.getMyProfile()
         });
   }
 
